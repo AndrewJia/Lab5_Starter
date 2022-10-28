@@ -15,6 +15,9 @@ const vol1 = "./assets/icons/volume-level-1.svg";
 const vol2 = "./assets/icons/volume-level-2.svg";
 const vol3 = "./assets/icons/volume-level-3.svg";
 
+const jsConfetti = new JSConfetti();                //confetti object
+let partyTime = false;                              //track if party horn is selected
+
 function init() {
   const audio = document.querySelector('audio');
   const button = document.querySelector('button');
@@ -22,6 +25,9 @@ function init() {
   button.addEventListener('click', function (e) {
     if(audio.src != "") {
       audio.play();
+    }
+    if(partyTime) {               //if party horn is selected, play confetti
+      jsConfetti.addConfetti();
     }
   });
 
@@ -34,14 +40,17 @@ function init() {
       hornimg.src = airhorn;                    //change img source
       hornimg.alt = "air horn image";           //change alt text
       audio.src = airsound;                     //change audio source
+      partyTime = false;                        //track if party horn is selected
     } else if (e.target.value == 'car-horn') {
       hornimg.src = carhorn;
       hornimg.alt = "car horn image";
       audio.src = carsound;
+      partyTime = false;
     } else if (e.target.value == 'party-horn') {
       hornimg.src = partyhorn;
       hornimg.alt = "party horn image";
       audio.src = partysound;
+      partyTime = true;
     } else {
       console.log("invalid horn selected?");
     }
